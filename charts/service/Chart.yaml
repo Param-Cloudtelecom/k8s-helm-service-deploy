@@ -1,0 +1,17 @@
+apiVersion: v2
+name: service
+description: >-
+  Generic Helm chart for deploying a containerized HTTP service — Deployment,
+  Service, HPA, ConfigMap, and optional Ingress — with sane production
+  defaults (resource limits, probes, non-root, PodDisruptionBudget).
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - microservice
+  - deployment
+  - fastapi
+home: https://github.com/Param-Cloudtelecom/k8s-helm-service-deploy
+maintainers:
+  - name: Parambir Singh
+    url: https://github.com/Param-Cloudtelecom

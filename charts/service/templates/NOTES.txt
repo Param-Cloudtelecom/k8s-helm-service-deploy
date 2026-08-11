@@ -1,0 +1,23 @@
+{{ .Chart.Name }} ({{ .Chart.AppVersion }}) deployed as release "{{ .Release.Name }}" in namespace "{{ .Release.Namespace }}".
+
+{{- if .Values.ingress.enabled }}
+
+Reachable at:
+  http{{ if .Values.ingress.tls.enabled }}s{{ end }}://{{ .Values.ingress.host }}/
+{{- else }}
+
+No Ingress enabled. Reach it from inside the cluster:
+  kubectl port-forward svc/{{ include "service.fullname" . }} 8080:{{ .Values.service.port }} -n {{ .Release.Namespace }}
+  curl localhost:8080/healthz
+{{- end }}
+
+Check rollout status:
+  kubectl rollout status deployment/{{ include "service.fullname" . }} -n {{ .Release.Namespace }}
+
+{{- if .Values.autoscaling.enabled }}
+
+Autoscaling {{ .Values.autoscaling.minReplicas }}-{{ .Values.autoscaling.maxReplicas }} replicas on
+{{- if .Values.autoscaling.targetCPUUtilizationPercentage }} {{ .Values.autoscaling.targetCPUUtilizationPercentage }}% CPU{{ end }}
+{{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}{{ if .Values.autoscaling.targetCPUUtilizationPercentage }} /{{ end }} {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}% memory{{ end }}.
+  kubectl get hpa {{ include "service.fullname" . }} -n {{ .Release.Namespace }}
+{{- end }}

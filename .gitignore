@@ -1,0 +1,3 @@
+charts/service/charts/
+*.tgz
+.DS_Store

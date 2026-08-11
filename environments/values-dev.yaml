@@ -1,0 +1,22 @@
+# helm upgrade --install demo-app ./charts/service -f environments/values-dev.yaml
+
+replicaCount: 1
+
+autoscaling:
+  enabled: false
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 96Mi
+  limits:
+    cpu: 250m
+    memory: 192Mi
+
+env:
+  ENVIRONMENT: dev
+  LOG_LEVEL: debug
+
+ingress:
+  enabled: true
+  host: demo-app.dev.example.com
